@@ -9,7 +9,8 @@ const STATIC_FILES_DIR = __dirname + '/static',
 
 const MIME_TYPES = {
   js: 'application/javascript',
-  html: 'text/html'
+  html: 'text/html',
+  css: 'text/css'
 };
 
 function serveStaticFile(path, headers, return404, res) {

@@ -1,0 +1,16 @@
+html, body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 700px;
+  margin: 0 auto;
+  background: firebrick;
+  color: yellow;
+}
+
+h1#banner {
+  background: black;
+  color: white;
+}
+
+a {
+  color: pink;
+}

@@ -9,4 +9,4 @@ function rewriteWikiLinksToThisSite() {
   });
 }
 
-$(window).ready(redirectWikiLinksToThisSite);
+$(window).ready(rewriteWikiLinksToThisSite);
