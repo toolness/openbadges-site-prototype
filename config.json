@@ -1,4 +1,5 @@
 {
   "port": "8072",
+  "hostname": "127.0.0.1",
   "baseContent": "https://wiki.mozilla.org/Badges"
 }

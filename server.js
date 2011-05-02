@@ -140,7 +140,7 @@ config = loadConfig();
 
 server = require('http').createServer(serveRequest);
 
-server.listen(config.port);
+server.listen(config.port, config.hostname);
 
 util.log("Now listening on port " + config.port);
 
