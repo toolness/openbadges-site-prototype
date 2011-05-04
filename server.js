@@ -114,6 +114,12 @@ function serveRequest(req, res) {
                    config.baseContentInfo.host + path;
     res.writeHead(302, {'Location': redirect});
     res.end();
+  } else if (path == '/update') {
+    var git = require('child_process').spawn('git', ['pull']);
+    git.on('exit', function(code) {
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.end(code.toString());
+    });
   } else {
     return serveTemplatedFile(config.baseContentInfo, path,
                               return404, res);
