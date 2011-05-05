@@ -2,15 +2,15 @@ html, body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 700px;
   margin: 0 auto;
-  background: firebrick;
-  color: yellow;
+  background: white;
+  color: black;
 }
 
 h1#banner {
-  background: black;
-  color: white;
+  background: white;
+  color: black;
 }
 
 a {
-  color: pink;
+  color: blue;
 }
