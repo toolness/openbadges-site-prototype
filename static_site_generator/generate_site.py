@@ -4,6 +4,7 @@ import re
 import urlparse
 import json
 import shutil
+from distutils.dir_util import mkpath
 
 ROOT = os.path.abspath(os.path.dirname(__file__))
 path = lambda *x: os.path.join(ROOT, *x)
@@ -24,6 +25,15 @@ cache = url_cache.UrlCache(storage)
 
 pages_built = []
 pages_to_build = set(['/'])
+
+def write_page(name, contents):
+    if not name.endswith('/'):
+        name += '/'
+    fullpath = path('dist', '%sindex.html' % name[1:])
+    mkpath(os.path.dirname(fullpath))
+    f = open(fullpath, 'w')
+    f.write(contents)
+    f.close()
 
 def get_page(name):
     url = 'https://wiki.mozilla.org/index.php?title=Badges%s&action=render' % name
@@ -47,16 +57,10 @@ def build(page):
                        for item in output_generator][1:-1])
 
     template = open(path('..', 'template.html')).read()
+    template = template.replace('{{ title }}', page.encode('utf-8'))
     template = template.replace('{{ content }}', content)
     template = template.replace('{{ config }}', open(path('..', 'config.json')).read())
-    f = open(path('dist', pathname_for_page(page)[1:]), 'w')
-    f.write(template)
-    f.close()
-
-def pathname_for_page(pagename):
-    if pagename.endswith('/'):
-        pagename += 'index'
-    return pagename + '.html'
+    write_page(page, template)
 
 def traverse(node):
     if node.nodeName == 'a' and node.hasAttribute('href'):
@@ -68,7 +72,7 @@ def traverse(node):
                 pagename = match.group(1)
                 if pagename not in pages_built:
                     pages_to_build.add(pagename)
-                node.setAttribute('href', pathname_for_page(pagename))
+                node.setAttribute('href', pagename)
     elif node.nodeName == 'img' and node.hasAttribute('src'):
         src = node.getAttribute('src')
         if src.startswith('/images/'):
